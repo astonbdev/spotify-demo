@@ -42,6 +42,7 @@ def homepage():
                     'top_long': None,
                     'recent': None,
                     }
+    print("after Spotify OAtuh creds")
     # setup spotify credentials to get user data
     scope = 'user-read-recently-played, user-top-read'
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
