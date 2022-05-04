@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template
 from utils import serializeTopTracks, serializeRecentTracks
+from spotipy.cache_handler import MemoryCacheHandler
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 from dotenv import load_dotenv
@@ -35,36 +36,48 @@ def homepage():
     #                 },
     #                 'json': True
     #                 }
-    print("Hello")
-    spotify = spotipy.Spotify(
-        client_credentials_manager=SpotifyClientCredentials())
+
     spotify_data = {'top_short': None,
                     'top_long': None,
                     'recent': None,
                     }
-    # setup spotify credentials to get user data
+
     scope = 'user-read-recently-played, user-top-read'
+
+    # setup spotify credentials to get user data
+    # using stored data about the token so that we can avoid the redirect when
+    # using Heroku
+    mem_token = {
+        'access_token': os.getenv("ACCESS_TOKEN"),
+        'token_type': os.getenv("TOKEN_TYPE"),
+        'expires_in': int(os.getenv("EXPIRES_IN")),
+        'refresh_token': os.getenv("REFRESH_TOKEN"),
+        'scope': os.getenv("SCOPE"),
+        'expires_at': int(os.getenv("EXPIRES_AT"))
+    }
+
+    # storing token template in the MemoryCacheHandler
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
-        scope=scope, username=os.getenv("USERNAME")))
-    print("after Spotify OAtuh creds")
+        scope=scope,
+        show_dialog=False,
+        cache_handler=MemoryCacheHandler(
+            token_info=mem_token
+        )
+    ))
+
     # get top tracks over short_term
     top_short = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='short_term')
-    print("Did we get the top short?")
     spotify_data['top_short'] = serializeTopTracks(top_short)
-    print("short", top_short)
 
     # get top tracks over long_term
     top_long = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='medium_term'
     )
     spotify_data['top_long'] = serializeTopTracks(top_long)
-    print("long", top_short)
 
     # get recent tracks
     recent = spotify.current_user_recently_played(limit=20)
     spotify_data['recent'] = serializeRecentTracks(recent)
-
-    print(spotify_data)
 
     return render_template('results.html', data=spotify_data)
