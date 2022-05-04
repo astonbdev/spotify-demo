@@ -35,6 +35,7 @@ def homepage():
     #                 },
     #                 'json': True
     #                 }
+    print("Hello")
     spotify = spotipy.Spotify(
         client_credentials_manager=SpotifyClientCredentials())
     spotify_data = {'top_short': None,
