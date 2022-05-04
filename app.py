@@ -63,4 +63,6 @@ def homepage():
     recent = spotify.current_user_recently_played(limit=20)
     spotify_data['recent'] = serializeRecentTracks(recent)
 
+    print(spotify_data)
+
     return render_template('results.html', data=spotify_data)
