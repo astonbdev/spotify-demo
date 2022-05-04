@@ -47,17 +47,18 @@ def homepage():
     scope = 'user-read-recently-played, user-top-read'
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
         scope=scope, username=os.getenv("USERNAME")))
-
     # get top tracks over short_term
     top_short = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='short_term')
     spotify_data['top_short'] = serializeTopTracks(top_short)
+    print("short", top_short)
 
     # get top tracks over long_term
     top_long = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='medium_term'
     )
     spotify_data['top_long'] = serializeTopTracks(top_long)
+    print("long", top_short)
 
     # get recent tracks
     recent = spotify.current_user_recently_played(limit=20)
