@@ -42,11 +42,11 @@ def homepage():
                     'top_long': None,
                     'recent': None,
                     }
-    print("after Spotify OAtuh creds")
     # setup spotify credentials to get user data
     scope = 'user-read-recently-played, user-top-read'
     spotify = spotipy.Spotify(auth_manager=SpotifyOAuth(
         scope=scope, username=os.getenv("USERNAME")))
+    print("after Spotify OAtuh creds")
     # get top tracks over short_term
     top_short = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='short_term')
