@@ -50,6 +50,7 @@ def homepage():
     # get top tracks over short_term
     top_short = spotify.current_user_top_tracks(
         limit=10, offset=10, time_range='short_term')
+    print("Did we get the top short?")
     spotify_data['top_short'] = serializeTopTracks(top_short)
     print("short", top_short)
 
