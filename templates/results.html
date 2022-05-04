@@ -1,20 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      href="https://bootswatch.com/5/minty/bootstrap.css"
-      rel="stylesheet"
-    />
-    <link href="static/cupcake.css" rel="stylesheet" />
-    <title>Spotify Demo</title>
-  </head>
-  <body>
-    <p>Results</p>
-    <script src="https://unpkg.com/jquery"></script>
-    <script src="https://unpkg.com/axios/dist/axios.js"></script>
-    <script src="/static/cupcake.js"></script>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block title %} Brians Top Songs {% endblock %}
+
+
+{% block content %}
+
+  <h1 class="pt-4 mb-3 text-center">Brians Spotify Song Data</h1>
+
+
+  <h2 class="pt-4 mb-3 text-center">Recently Played Songs</h2>
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Song Name</th>
+        <th scope="col">Artist(s)</th>
+        <th scope="col">Album</th>
+      </tr>
+    </thead
+    {% for track in data['recent'] %}
+    <tr>
+      <td>{{track['name']}}</td>
+      <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
+      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h2 class="pt-4 mb-3 text-center">Top Songs Short Term</h2>
+    <table class="table thead-light">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Song Name</th>
+          <th scope="col">Artist(s)</th>
+          <th scope="col">Album</th>
+        </tr>
+      </thead>
+    {% for track in data['top_short'] %}
+    <tr>
+      <td>{{track['name']}}</td>
+      <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
+      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <h2 class="pt-4 mb-3 text-center">Top Songs Long Term</h2>
+    <table class="table thead-light">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Song Name</th>
+          <th scope="col">Artist(s)</th>
+          <th scope="col">Album</th>
+        </tr>
+      </thead>
+    {% for track in data['top_long'] %}
+    <tr>
+      <td>{{track['name']}}</td>
+      <td>{% for artist in track['artists'] %}{{ artist}}, {% endfor %}</td>
+      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
+{% endblock %}
