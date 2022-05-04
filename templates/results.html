@@ -6,26 +6,28 @@
 
   <h1 class="pt-4 mb-3 text-center">Brians Spotify Song Data</h1>
 
-
   <h2 class="pt-4 mb-3 text-center">Recently Played Songs</h2>
-  <table class="table table-striped">
-    <thead class="thead-primary">
+  <div class="m-4">
+    <table class="table table-striped">
+      <thead class="thead-primary">
+        <tr>
+          <th scope="col">Song Name</th>
+          <th scope="col">Artist(s)</th>
+          <th scope="col">Album</th>
+        </tr>
+      </thead
+      {% for track in data['recent'] %}
       <tr>
-        <th scope="col">Song Name</th>
-        <th scope="col">Artist(s)</th>
-        <th scope="col">Album</th>
+        <td>{{track['name']}}</td>
+        <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
+        <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
       </tr>
-    </thead
-    {% for track in data['recent'] %}
-    <tr>
-      <td>{{track['name']}}</td>
-      <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
-      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
-    </tr>
-    {% endfor %}
-  </table>
+      {% endfor %}
+    </table>
+  </div>
 
   <h2 class="pt-4 mb-3 text-center">Top Songs Short Term</h2>
+  <div class="m-4">
     <table class="table table-striped">
       <thead class="thead-light">
         <tr>
@@ -35,15 +37,17 @@
         </tr>
       </thead>
     {% for track in data['top_short'] %}
-    <tr>
-      <td>{{track['name']}}</td>
-      <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
-      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
-    </tr>
+      <tr>
+        <td>{{track['name']}}</td>
+        <td>{% for artist in track['artists'] %}{{ artist }}, {% endfor %}</td>
+        <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
+      </tr>
     {% endfor %}
-  </table>
+    </table>
+  </div>
 
   <h2 class="pt-4 mb-3 text-center">Top Songs Long Term</h2>
+  <div class="m-4">
     <table class="table table-striped">
       <thead class="thead-light">
         <tr>
@@ -52,14 +56,16 @@
           <th scope="col">Album</th>
         </tr>
       </thead>
-    {% for track in data['top_long'] %}
-    <tr>
-      <td>{{track['name']}}</td>
-      <td>{% for artist in track['artists'] %}{{ artist}}, {% endfor %}</td>
-      <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
-    </tr>
-    {% endfor %}
-  </table>
+      {% for track in data['top_long'] %}
+      <tr>
+        <td>{{track['name']}}</td>
+        <td>{% for artist in track['artists'] %}{{ artist}}, {% endfor %}</td>
+        <td><a href="{{track['album'][1]}}">{{track['album'][0]}}</a></li></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
 
 
 {% endblock %}

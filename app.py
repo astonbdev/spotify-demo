@@ -3,11 +3,8 @@ from flask import Flask, render_template
 from utils import serializeTopTracks, serializeRecentTracks
 from spotipy.cache_handler import MemoryCacheHandler
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
-
-CURR_USER_KEY = "curr_user"
-BASE_URL = "http://localhost:5001"
 
 load_dotenv()
 
@@ -24,19 +21,6 @@ def homepage():
     includes tables for top_short tracks, top_medium tracks,
     and recently played
     """
-    # client_secret = app.config['CLIENT_SECRET']
-    # client_id = app.config['SPOTIFY_ID']
-
-    # auth_options = {'url': 'https://accounts.spotify.com/api/token',
-    #                 'headers': {
-    #                     'Authorization': f'Basic {client_id}:{client_secret}'
-    #                 },
-    #                 'form': {
-    #                     'grant_type': 'client_credentials'
-    #                 },
-    #                 'json': True
-    #                 }
-
     spotify_data = {'top_short': None,
                     'top_long': None,
                     'recent': None,
