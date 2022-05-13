@@ -12,16 +12,16 @@ playing with the spotify api
 ## Required Environment Variables
 
 ### these variables will be derived by creating a developer app on spotifys web pages
-APP_SECRET_KEY=
-SPOTIPY_CLIENT_SECRET=
-SPOTIPY_CLIENT_ID=
-SPOTIPY_REDIRECT_URI=
-USERNAME=
+- APP_SECRET_KEY=
+- SPOTIPY_CLIENT_SECRET=
+- SPOTIPY_CLIENT_ID=
+- SPOTIPY_REDIRECT_URI=
+- USERNAME=
 
 ### these variables must be derived from a request that you make on your local server
-ACCESS_TOKEN=
-TOKEN_TYPE=
-EXPIRES_IN=
-REFRESH_TOKEN=
-SCOPE=
-EXPIRES_AT=
+- ACCESS_TOKEN=
+- TOKEN_TYPE=
+- EXPIRES_IN=
+- REFRESH_TOKEN=
+- SCOPE=
+- EXPIRES_AT=
